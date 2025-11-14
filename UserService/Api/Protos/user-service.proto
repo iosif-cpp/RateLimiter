@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserService";
+
+package userService;
+
+message UserDto {
+  int32 id = 1;
+  string login = 2;
+  string password = 3;
+  string name = 4;
+  string surname = 5;
+  int32 age = 6;
+}
+
+message CreateUserRequest {
+  string login = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  int32 age = 5;
+}
+
+message GetUserByIdRequest {
+  int32 id = 1;
+}
+
+message GetUserByNameRequest {
+  string name = 1;
+  string surname = 2;
+}
+
+message UpdateUserRequest {
+  int32 id = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  int32 age = 5;
+}
+
+message DeleteUserRequest {
+  int32 id = 1;
+}
+
+message CreateUserResponse {
+  bool success = 1;
+  string error_message = 2;
+  UserDto user = 3;
+}
+
+message GetUserByIdResponse {
+  bool found = 1;
+  UserDto user = 2;
+}
+
+message GetUserByNameResponse {
+  repeated UserDto users = 1;
+}
+
+message UpdateUserResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+}
+
+service UserServiceApi {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc GetUserById (GetUserByIdRequest) returns (GetUserByIdResponse);
+  rpc GetUserByName (GetUserByNameRequest) returns (GetUserByNameResponse);
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+}
